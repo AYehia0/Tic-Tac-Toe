@@ -113,8 +113,8 @@ def play_loop(game, player_x, player_o, print_game=True):
             choice_letter = 'X' if  choice_letter == 'O' else 'O'
 
 
-        if print_game:
-            print("Tie")
+    if print_game:
+        print("Tie")
 
 
 if __name__ == '__main__':
