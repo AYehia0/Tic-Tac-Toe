@@ -1,5 +1,5 @@
 from moves import all_moves
-from player import RealPlayer, ComputerPlayer
+from player import RealPlayer, ComputerPlayer, SmartComputerPlayer
 
 class TicTacToe:
     def __init__(self):
@@ -56,7 +56,7 @@ class TicTacToe:
                 if col == ' ':
                     count += 1
         if count <= 0:
-            return False,
+            return False, count
         return True, count
 
     def win(self, place, choice):
@@ -119,7 +119,8 @@ def play_loop(game, player_x, player_o, print_game=True):
 
 if __name__ == '__main__':
     player_x = RealPlayer('X')
-    player_y = ComputerPlayer('O')
+    player_y = SmartComputerPlayer('O')
+    #player_y = ComputerPlayer('O')
     game_ttt = TicTacToe()
     play_loop(game_ttt, player_x, player_y)
 
