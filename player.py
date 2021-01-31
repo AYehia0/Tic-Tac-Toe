@@ -111,6 +111,37 @@ class SmartComputerPlayer(Player):
 
         return best
 
+class AnotherSmartPlayer(Player):
+    def __init__(self, choice):
+        super().__init__(choice)
+
+    # Returns the (x,y) position of the move to be played
+    def get_move(self, game):
+        # Since we want to maximize our win 
+        best_score = -math.inf
+        move = (-1,-1)
+
+        # checking for available spaces
+        for x,y in game.check_spaces():
+            game.board[x][y] = self.choice
+
+            score = self.minmax(game.board, 0, False)
+
+            #Unmake it , so it's not written 
+            game.board[x][y] = ' '
+
+            if score > best_score:
+                best_score = score
+                move = (x,y)
+
+        return move
+
+    def minmax(self, board, depth, isMaximizer):
+        # checking for winners
+        pass
+
+
+
 
 class RealPlayer(Player):
 
