@@ -44,7 +44,7 @@ class SmartComputerPlayer(Player):
 
     def get_move(self,game):
         # Check if the board is empty and it's the bot's turn (in case if 2 bots are playing againest each other)
-        if game.get_empty_places()[1] == len(game.board)**2:
+        if game.num_empty_places() == len(game.board)**2:
             # Random choice
             played_spot = random.choice(game.check_spaces())
         else:
@@ -65,11 +65,11 @@ class SmartComputerPlayer(Player):
         if game.winner == other_maxmin:
             return {
                 'pos': (None,None),
-                'score' : 1*(game.get_empty_places()[1] + 1) if other_maxmin == maximize else -1*(game.get_empty_places()[1] + 1) # According to the minMax algo
+                'score' : 1*(game.num_empty_places() + 1) if other_maxmin == maximize else -1*(game.num_empty_places() + 1) # According to the minMax algo
             }
         # No empty spots
         # None won
-        elif not game.get_empty_places()[0]:
+        elif not game.get_empty_places():
             return {
                 'pos' : (None,None),
                 'score' : 0
@@ -111,34 +111,34 @@ class SmartComputerPlayer(Player):
 
         return best
 
-class AnotherSmartPlayer(Player):
-    def __init__(self, choice):
-        super().__init__(choice)
+# class AnotherSmartPlayer(Player):
+#     def __init__(self, choice):
+#         super().__init__(choice)
 
-    # Returns the (x,y) position of the move to be played
-    def get_move(self, game):
-        # Since we want to maximize our win 
-        best_score = -math.inf
-        move = (-1,-1)
+#     # Returns the (x,y) position of the move to be played
+#     def get_move(self, game):
+#         # Since we want to maximize our win 
+#         best_score = -math.inf
+#         move = (-1,-1)
 
-        # checking for available spaces
-        for x,y in game.check_spaces():
-            game.board[x][y] = self.choice
+#         # checking for available spaces
+#         for x,y in game.check_spaces():
+#             game.board[x][y] = self.choice
 
-            score = self.minmax(game.board, 0, False)
+#             score = self.minmax(game.board, 0, False)
 
-            #Unmake it , so it's not written 
-            game.board[x][y] = ' '
+#             #Unmake it , so it's not written 
+#             game.board[x][y] = ' '
 
-            if score > best_score:
-                best_score = score
-                move = (x,y)
+#             if score > best_score:
+#                 best_score = score
+#                 move = (x,y)
 
-        return move
+#         return move
 
-    def minmax(self, board, depth, isMaximizer):
-        # checking for winners
-        pass
+#     def minmax(self, board, depth, isMaximizer):
+#         # checking for winners
+#         pass
 
 
 
