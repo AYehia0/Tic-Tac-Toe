@@ -50,18 +50,25 @@ class TicTacToe:
         return False 
 
     def get_empty_places(self):
+        for row in self.board:
+            for col in row:
+                if col == ' ':
+                    return True
+        return False
+
+
+    def num_empty_places(self):
         count = 0
         for row in self.board:
             for col in row:
                 if col == ' ':
                     count += 1
-        if count <= 0:
-            return False, count
-        return True, count
+        return count
 
     def win(self, place, choice):
         # Checking rows
-        rows = self.board[place[0]//3]
+        # print(place)
+        rows = self.board[place[0]%3]
         if all(spot == choice for spot in rows):
             return True
 
@@ -91,7 +98,7 @@ def play_loop(game, player_x, player_o, print_game=True):
 
     # We can going to play with X
     choice_letter = 'X'
-    while game.get_empty_places()[0]:
+    while game.get_empty_places():
         if choice_letter == 'O':
             place = player_o.get_move(game)
         else:
@@ -120,7 +127,7 @@ def play_loop(game, player_x, player_o, print_game=True):
 if __name__ == '__main__':
     player_x = RealPlayer('X')
     player_y = SmartComputerPlayer('O')
-    #player_y = ComputerPlayer('O')
+    # player_y = ComputerPlayer('O')
     game_ttt = TicTacToe()
     play_loop(game_ttt, player_x, player_y)
 
